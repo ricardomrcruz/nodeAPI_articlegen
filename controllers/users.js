@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
 
+let users = [];
 
 export const getUsers = (req ,res) => {
     // console.log(users);
     res.send(users);
 }
-
 
 
 export const createUser = (req, res) => {
@@ -45,14 +45,14 @@ export const deleteUser = (req, res) => {
 }
 
 
-
 export const updateUser = (req, res) => {
+    
+    
     const { id } = req.params;
     const { name, lastname, age} = req.body;
 
     const user = users.find((user) => user.id === id);
     
-
 
     if (name) user.name = name;
     if (lastname) user.lastname = lastname;

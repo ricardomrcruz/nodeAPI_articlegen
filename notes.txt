@@ -1,0 +1,7 @@
+
+
+
+install the model from huggingface text-to-text
+
+see tuto eddev on api mongodb
+
