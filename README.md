@@ -1,7 +1,9 @@
 # Node Api Rest | AI Blog Article generator
 
-![banner](https://bs-uploads.toptal.io/blackfish-uploads/components/seo/content/og_image_file/og_image/1302192/secure-rest-api-in-nodejs-18f43b3033c239da5d2525cfd9fdc98f.png)
 
-In construction
+
+![banner](https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/315108852/original/b32f19504ef9c812e4f08c17f3e971f68d944d56/do-professional-rest-api-in-node-js-with-mongodb-and-ms-sql.png)
+
+## In construction
 
 Using express nodejs framework and postman.
