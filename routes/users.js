@@ -2,6 +2,9 @@ import express  from "express";
 
 import { createUser, getUsers, getUser, deleteUser, updateUser } from '../controllers/users.js';
  
+
+const mongoose = require("mongoose")
+
 const router = express.Router(); // to initiate the router
 
 
