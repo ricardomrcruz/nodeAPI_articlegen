@@ -3,14 +3,11 @@ import express  from "express";
 import { createUser, getUsers, getUser, deleteUser, updateUser } from '../controllers/users.js';
  
 
-const mongoose = require("mongoose")
-
 const router = express.Router(); // to initiate the router
 
 
-
 //all routes here are starting with /users
-router.get('/', getUsers);
+// router.get('/', getUsers);
 
 router.post('/', createUser );
 
