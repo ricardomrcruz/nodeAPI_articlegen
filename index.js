@@ -1,12 +1,101 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-
 import usersRoutes from './routes/users.js';
 
 const app = express();
 const PORT = 5000;
-
 app.use(bodyParser.json());
+
+
+// CHATGPT
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+});
+
+const runPrompt = async() =>{
+
+          const prompt = `
+
+          Generate an SEO-optimized neuroscience article with the following details.
+
+          one title, one intro paragraph, 4 paragraphs of content with each one a subtitle.
+          
+          Ensure that the properties for images are empty strings, and keywords should be related to achieving the best SEO possible, in line with the content of the text and the title of the article.
+          
+          Format your response in the following parsable JSON structure:
+
+                {
+                  
+                    "title": {
+                      "type": "string"
+                    },
+                    "subtitle": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "intro": {
+                      "type": "string"
+                    },
+                    "paragraphs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "keywords": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "image1": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "image2": {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  },
+                  "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
+                }
+                   
+        
+          `;
+          
+          const response = await openai.completions.create({
+            model: "text-davinci-003",
+            prompt: prompt,
+            max_tokens: 2048,
+            temperature: 1.2,
+          });
+          
+          // console.log(response.choices[0].text);
+
+          const parsableJSONresponse = response.choices[0].text;
+          
+          
+
+
+}
+
+// runPrompt();
+
+
+
+
+
+
+
+
 
 // DB CONNECTION
 
@@ -29,8 +118,6 @@ import articleObj from './models/channel.js';
 // ROUTES
 
 app.use('/users', usersRoutes );
-
-
 
 
 

@@ -3,5 +3,6 @@
 # .gitignore
 
 # Ignored files
-
+.env
+node_modules/
 config.js
