@@ -24,75 +24,77 @@ const runPrompt = async() =>{
 
           Generate an SEO-optimized neuroscience article with the following details.
 
-          one title, one intro paragraph, 4 paragraphs of content with each one a subtitle.
+          One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
           
-          Ensure that the properties for images are empty strings, and keywords should be related to achieving the best SEO possible, in line with the content of the text and the title of the article.
+          You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles.
           
-          Format your response in the following parsable JSON structure:
+          Ensure that the properties for images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
+          
+          Format your response using the following JSON structure, no extra text, no "\n".
+          The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. The structure should be:
 
-                {
+          {
                   
-                    "title": {
-                      "type": "string"
-                    },
-                    "subtitle": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "intro": {
-                      "type": "string"
-                    },
-                    "paragraphs": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "keywords": {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    "image1": {
-                      "type": "string",
-                      "format": "uri"
-                    },
-                    "image2": {
-                      "type": "string",
-                      "format": "uri"
-                    }
-                  },
-                  "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
-                }
-                   
-        
-          `;
-          
-          const response = await openai.completions.create({
-            model: "text-davinci-003",
-            prompt: prompt,
-            max_tokens: 2048,
-            temperature: 1.2,
-          });
-          
-          // console.log(response.choices[0].text);
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "intro": {
+              "type": "string"
+            },
+            "paragraphs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "image1": {
+              "type": "string",
+              "format": "uri"
+            },
+            "image2": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
+        }
+           
 
-          const parsableJSONresponse = response.choices[0].text;
-          
-          
+  `;
+  
+  const response = await openai.completions.create({
+    model: "text-davinci-003",
+    prompt: prompt,
+    max_tokens: 2048,
+    temperature: 1.2,
+  });
+  
+  // console.log(response.choices[0].text);
+  
+  const resultText = response.choices[0].text;
 
+  const multipliedBy= resultText * 10; //for the oment we gonna keep ot 10 wemight assign a variable later to this project
+  
+
+
+  console.log(`Result multiplied by 10: ${multipliedBy}`);
+         
 
 }
 
-// runPrompt();
-
-
-
-
-
+runPrompt();
 
 
 
