@@ -15,10 +15,14 @@ dotenv.config();
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY // This is also the default, can be omitted
+  apiKey: process.env.OPENAI_API_KEY 
 });
 
-const runPrompt = async() =>{
+const numberResponses = 1;
+
+const runPrompt = async(numberResponses) =>{
+
+  let groupResponses = [];
 
           const prompt = `
 
@@ -28,9 +32,10 @@ const runPrompt = async() =>{
           
           You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles.
           
-          Ensure that the properties for images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
+          Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
           
-          Format your response using the following JSON structure, no extra text, no "\n".
+          Format your response using the following JSON structure, no extra text, no "\n". 
+          Verify al the ',' and brackets are in fact in the json response so it doenst return an error.
           The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. The structure should be:
 
           {
@@ -71,32 +76,37 @@ const runPrompt = async() =>{
           "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
         }
            
-
   `;
   
-  const response = await openai.completions.create({
-    model: "text-davinci-003",
-    prompt: prompt,
-    max_tokens: 2048,
-    temperature: 1.2,
-  });
-  
-  // console.log(response.choices[0].text);
-  
-  const resultText = response.choices[0].text;
 
-  const multipliedBy= resultText * 10; //for the oment we gonna keep ot 10 wemight assign a variable later to this project
-  
+  for (let i = 0; i < numberResponses; i++) {
+    try {
+      const response = await openai.completions.create({
+        model: "text-davinci-003",
+        prompt: prompt,
+        max_tokens: 3600,
+        temperature: 1.2,
+      });
 
+      console.log(response.choices[0].text);
+      const jsonResponse = JSON.parse(response.choices[0].text);
+      groupResponses.push(jsonResponse);
+    } catch (error) {
+      console.error('Error in OpenAI call:', error);
+      throw error; // re-throw the error to be caught in the route handler
+    }
+  }
 
-  console.log(`Result multiplied by 10: ${multipliedBy}`);
-         
-
+  // If you're expecting just one response, return the first element
+  if (groupResponses.length === 1) {
+    return groupResponses[0];
+  } else {
+    // If multiple responses are expected, return the array
+    return groupResponses;
+  }
 }
 
-runPrompt();
-
-
+//  runPrompt(numberResponses);
 
 
 // DB CONNECTION
@@ -124,24 +134,23 @@ app.use('/users', usersRoutes );
 
 
 
-app.get('/insert', async (req,res)=>{
-   try {
-  const newArticleData = {
-      title: "Neuroscience",
-      subtitle: "teh wonders of the brain",
-      intro: "I really like to blog about the sciences of the mind",
-      paragraphs: [ "I cant live without blogging about this dear and close to my heart passion called neuroscience", 
-    "exploring the realms of neuroscience, biohacking and evolutionary biology have been theme in my everyday curiosity"],
-    keywords: [ "neuroscience", "mind", "thinking"],
+app.get('/insert', async (req, res) => {
+  try {
+    let newArticleData = await runPrompt(numberResponses);
+    
+    // Check if newArticleData is a string and parse it
+    if (typeof newArticleData === 'string') {
+      newArticleData = JSON.parse(newArticleData);
     }
+    
+    console.log('New Article Data:', newArticleData);
 
-  const savedArticle = await articleObj.create(newArticleData);
-  res.json(savedArticle);
-
-   } catch (error) {
-      console.error('error inserting article', error);
-      res.status(500).json({error: 'Internal Server Error'});
-   }
+    const savedArticle = await articleObj.create(newArticleData);
+    res.json(savedArticle);
+  } catch (error) {
+    console.error('Error inserting article:', error.message, error.stack);
+    res.status(500).json({ error: 'Internal Server Error', details: error.message });
+  }
 });
 
 app.use('/', (req, res) => { res.send('Hello world!'); }); 

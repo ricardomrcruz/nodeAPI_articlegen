@@ -6,7 +6,7 @@ const articleSchema = new mongoose.Schema({
       required: true,
     },
     subtitle: {
-      type: String,
+      type: [String],
     },
     intro: {
       type: String,
