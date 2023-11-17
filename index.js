@@ -26,7 +26,7 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate an SEO-optimized blog article about biohacking with the following details.
+          Generate an SEO-optimized blog article written in french about the benefits of CBD with the following details.
 
           One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
           
