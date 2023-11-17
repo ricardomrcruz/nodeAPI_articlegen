@@ -34,7 +34,7 @@ const runPrompt = async(numberResponses) =>{
           
           Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
           
-          Format your response using the following JSON structure, no extra text, no "\n". 
+          Avoid any extraneous formatting or fields.
           Verify al the ',' and brackets are in fact in the json response so it doenst return an error.
           The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. The structure should be:
 
