@@ -26,18 +26,22 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate an SEO-optimized neuroscience article with the following details.
+          Generate an SEO-optimized blog article about biohacking with the following details.
 
           One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
           
           You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles.
           
           Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
-          
-          Avoid any extraneous formatting or fields.
-          Verify al the ',' and brackets are in fact in the json response so it doenst return an error.
-          The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. The structure should be:
 
+          Return the response in a json object with the following details. Avoid any extraneous formatting or fields.
+          
+          Verify al the ',' and brackets ']' are in fact in the json response so it doenst return an error.
+          
+          The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. 
+          
+          The structure should be:
+          
           {
                   
             "title": {
@@ -81,15 +85,23 @@ const runPrompt = async(numberResponses) =>{
 
   for (let i = 0; i < numberResponses; i++) {
     try {
-      const response = await openai.completions.create({
-        model: "text-davinci-003",
-        prompt: prompt,
-        max_tokens: 3600,
-        temperature: 1.2,
+      const completion = await openai.chat.completions.create({
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant designed to output JSON.",
+          },
+          { role: "user", content: prompt },
+        ],
+        model: "gpt-4-1106-preview",
+        response_format: { type: "json_object" },
       });
 
-      console.log(response.choices[0].text);
-      const jsonResponse = JSON.parse(response.choices[0].text);
+      console.log(completion.choices[0].message.content);
+
+      const jsonResponse = completion.choices[0].message.content;
+
+      // const jsonResponse = JSON.parse(response.choices[0].text);
       groupResponses.push(jsonResponse);
     } catch (error) {
       console.error('Error in OpenAI call:', error);
@@ -134,7 +146,7 @@ app.use('/users', usersRoutes );
 
 
 
-app.get('/insert', async (req, res) => {
+app.post('/insert', async (req, res) => {
   try {
     let newArticleData = await runPrompt(numberResponses);
     
