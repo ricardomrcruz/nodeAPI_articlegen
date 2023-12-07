@@ -43,10 +43,10 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate an SEO-optimized scientific blog article written about:
+          Generate a topical SEO-optimized scientific neuroscience, evolutionary biology blog article about:
   
-          '' 
-          
+          'Ayahuasca' 
+
           with the following details.
 
           One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
