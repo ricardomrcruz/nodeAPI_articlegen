@@ -1,13 +1,30 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersRoutes from './routes/users.js';
+import cors from 'cors';
+
 
 const app = express();
-const PORT = 5000;
-app.use(bodyParser.json());
+const PORT = 8000;
 
 
-// CHATGPT
+//DOUBLE SERVER RUNNING AT THE SAME TIME
+// Add a list of allowed origins.
+// If you have more origins you would like to add, you can add them to the array below.
+const allowedOrigins = ['http://localhost:5173'];
+
+const options = {
+  origin: allowedOrigins
+};
+
+// Then pass these options to cors:
+app.use(cors(options));
+
+app.use(express.json());
+
+
+
+// CHATGPT MODEL INTEGRATION
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -26,13 +43,21 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate an SEO-optimized blog article written in french about the benefits of CBD with the following details.
+          Generate an SEO-optimized scientific blog article written about:
+  
+          '' 
+          
+          with the following details.
 
           One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
           
           You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles.
           
           Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
+
+          Add the latest (2023 if possible) quotes, experts on the field, scientifical and trustworthy research and experiments, facts and sources. 
+          
+          Use technical, medical, physics and biological scientifical language with details and without restriction. 
 
           Return the response in a json object with the following details. Avoid any extraneous formatting or fields.
           
@@ -96,6 +121,9 @@ const runPrompt = async(numberResponses) =>{
         model: "gpt-4-1106-preview",
         response_format: { type: "json_object" },
       });
+      console.log('OpenAI API Response:', completion);
+      console.log(JSON.stringify(completion, null, 2));
+
 
       console.log(completion.choices[0].message.content);
 
@@ -139,15 +167,29 @@ async function main() {
 
 import articleObj from './models/channel.js';
 
-// ROUTES
+
+
+
+
+
+////////////////////////////////////  ROUTES /////////////////////////////////////////////
 
 app.use('/users', usersRoutes );
 
 
+app.get('/api/data', async (req, res) => {
+  try{
+    const data = await articleObj.find();
 
+  }catch{
+
+  }
+})
 
 app.post('/insert', async (req, res) => {
   try {
+
+    console.log('Incoming Request Data:', req.body);
     let newArticleData = await runPrompt(numberResponses);
     
     // Check if newArticleData is a string and parse it

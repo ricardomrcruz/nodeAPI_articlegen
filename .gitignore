@@ -6,3 +6,9 @@
 .env
 node_modules/
 config.js
+
+
+# backend
+
+front\dash\node_modules
+front\dash\svelte.config.js
