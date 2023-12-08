@@ -43,15 +43,16 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate a topical SEO-optimized scientific neuroscience, evolutionary biology blog article about:
+          Generate a chosen by you specifical topical SEO-optimized scientific neuroscience, evolutionary biology blog article about:
   
-          'Ayahuasca' 
+          'the brain hallucinates our conscious reality scientically explained' 
 
           with the following details.
 
-          One title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
+          One out-of-the-box controversial title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
           
-          You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles.
+          You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles. 
+          Identify the paragraphs that correspond for each subtitle by adding a simple number 1., 2., 3. at the beginning of the paragraphs.
           
           Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
 
@@ -189,7 +190,7 @@ app.get('/api/data', async (req, res) => {
 app.post('/insert', async (req, res) => {
   try {
 
-    console.log('Incoming Request Data:', req.body);
+    // console.log('Incoming Request Data:', req.body);
     let newArticleData = await runPrompt(numberResponses);
     
     // Check if newArticleData is a string and parse it
