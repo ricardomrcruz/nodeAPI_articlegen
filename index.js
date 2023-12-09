@@ -43,67 +43,44 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate a chosen by you specifical topical SEO-optimized scientific neuroscience, evolutionary biology blog article about:
+          Generate a topical scientifically-focused, SEO-optimized blog article on the topic:
   
           'the brain hallucinates our conscious reality scientically explained' 
 
-          with the following details.
+          Ensure the content aligns with Google's latest SEO standards as outlined at https://developers.google.com/search/docs/fundamentals/creating-helpful-content.
 
-          One out-of-the-box controversial title, one intro paragraph. 5 minimum, 8 maximum paragraphs of content. 
-          
-          You can group with coherence the content of two paragraphs and create a subtitle accordingly to this paragraphs. Maximum 3 subtitles. 
-          Identify the paragraphs that correspond for each subtitle by adding a simple number 1., 2., 3. at the beginning of the paragraphs.
-          
-          Ensure that the images are empty strings, and the 6 keywords maximum should be related to achieving the best SEO possible, in coherence with the content of the text and the title of the article.
+          Requirements:
+            
+            - Controversial and out-of-the-box title.
+   
+            - Intro paragraph, followed by 6-8 content paragraphs.
 
-          Add the latest (2023 if possible) quotes, experts on the field, scientifical and trustworthy research and experiments, facts and sources. 
+            - Group related content into a maximum of 3 subtitles, labeled with numbers 1., 2., 3. Group the content paragraphs and subtitles with coherence and numbered labels. 
           
-          Use technical, medical, physics and biological scientifical language with details and without restriction. 
+            - Include up to 6 SEO-relevant keywords, consistent with the article's content and title.
+          
+            - Include up to 6 SEO-relevant keywords, consistent with the article's content and title.
 
-          Return the response in a json object with the following details. Avoid any extraneous formatting or fields.
+            - Add current (2023) quotes, experts' opinions, scientific research, facts, and sources.
           
-          Verify al the ',' and brackets ']' are in fact in the json response so it doenst return an error.
+            - Use technical language from medical, physics, and biological sciences.
+
+          Return the response in a compact json object with the following details. Avoid any extraneous formatting or fields.
           
-          The JSON structure should be compact, without unnecessary line breaks or formatting elements like 'type' or 'value' fields. 
+          Verify al the ',' and brackets ']' are in fact present, no unnecessary line breaks or formatting elements like 'type' or 'value' fields. 
           
-          The structure should be:
+          Format:
           
           {
-                  
-            "title": {
-              "type": "string"
-            },
-            "subtitle": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "intro": {
-              "type": "string"
-            },
-            "paragraphs": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "keywords": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "image1": {
-              "type": "string",
-              "format": "uri"
-            },
-            "image2": {
-              "type": "string",
-              "format": "uri"
-            }
-          },
-          "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
+            "title": "string",
+            "subtitle": ["string"],
+            "intro": "string",
+            "paragraphs": ["string"],
+            "keywords": ["string"],
+            "image1": "string uri",
+            "image2": "string uri",
+            "required": ["_id", "title", "subtitle", "intro", "paragraphs", "keywords"]
+          }
         }
            
   `;
