@@ -43,7 +43,7 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate a 2000 word topical scientifically-focused, SEO-optimized blog article on the topic:
+          Generate a 2000 to 2500 word topical scientifically-focused, SEO-optimized blog article on the topic:
   
           'the brain hallucinates our conscious reality scientically explained' 
 
