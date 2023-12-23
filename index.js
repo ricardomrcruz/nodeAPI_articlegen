@@ -43,7 +43,7 @@ const runPrompt = async(numberResponses) =>{
 
           const prompt = `
 
-          Generate a topical scientifically-focused, SEO-optimized blog article on the topic:
+          Generate a 2000 word topical scientifically-focused, SEO-optimized blog article on the topic:
   
           'the brain hallucinates our conscious reality scientically explained' 
 
@@ -53,7 +53,7 @@ const runPrompt = async(numberResponses) =>{
             
             - Controversial and out-of-the-box title.
    
-            - Intro paragraph, followed by 6-8 content paragraphs.
+            - Intro paragraph, followed by 6-8 content paragraphs. 
 
             - Group related content into a maximum of 3 subtitles, labeled with numbers 1., 2., 3. Group the content paragraphs and subtitles with coherence and numbered labels. 
           
