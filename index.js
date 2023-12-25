@@ -45,7 +45,9 @@ const runPrompt = async(numberResponses) =>{
 
           Generate a 2000 to 2500 word topical scientifically-focused, SEO-optimized blog article on the topic:
   
-          'the brain hallucinates our conscious reality scientically explained' 
+          '"Harnessing Dopamine in the Digital Era: Challenges and Strategies"
+
+          This final segment can address the unique challenges of maintaining healthy dopamine levels in the digital age, focusing on the impact of technology and social media on our dopamine-driven motivation system, and offering strategies to navigate these challenges.' 
 
           Ensure the content aligns with Google's latest SEO standards as outlined at https://developers.google.com/search/docs/fundamentals/creating-helpful-content.
 
