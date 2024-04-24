@@ -1,5 +1,4 @@
-![banner](https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/315108852/original/b32f19504ef9c812e4f08c17f3e971f68d944d56/do-professional-rest-api-in-node-js-with-mongodb-and-ms-sql.png)
-
+![banner](https://www.a7la-home.com/wp-content/uploads/2023/06/How-to-Get-OpenAI-API-Key-1536x864-1-1024x576.jpg)
 
 # AI-Driven Scientific Blog Article Generator
 
